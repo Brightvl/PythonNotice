@@ -6,14 +6,15 @@ data = {};
 
 def run_menu():
     data = load_notions()
-
-    print(data)
+    show_all_records(data)
     choice = view_menu()
     if choice == "2":
-        view_records(data)
+        show_all_records(data)
     if choice == "3":
         id = user_input(message(1))
         show_notion(data, id)
+        user_output(message(2))
+
 
 
     else:

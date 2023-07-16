@@ -1,8 +1,8 @@
-from Controller import run_menu
+from Controller import main_menu
 
 # Заметки:
 # id
 # название
 # дата создания и последнего изменения
 
-run_menu()
+main_menu()

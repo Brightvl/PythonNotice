@@ -6,5 +6,3 @@ def load_notions() -> dict:
         return json.loads(read_file.read())
 
 
-# def get_record(data: dict):
-#     data

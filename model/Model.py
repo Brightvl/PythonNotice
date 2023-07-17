@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 
-def load_notions() -> dict:
+def load_notes() -> dict:
     with open("data/notes.json", "r") as read_file:
         return json.loads(read_file.read())
 
@@ -31,6 +31,8 @@ def find_available_key(notes):
 
 def check_key(data: dict, key: str):
     return key in data
+
+
 
 
 

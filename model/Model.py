@@ -4,16 +4,16 @@ from datetime import datetime
 
 
 def load_notions() -> dict:
-    with open("notice/notions.json", "r") as read_file:
+    with open("data/notes.json", "r") as read_file:
         return json.loads(read_file.read())
 
 
 def save_changes(data):
-    with open("notice/notions.json", 'w') as save_file:
+    with open("data/notes.json", 'w') as save_file:
         json.dump(data, save_file, indent=4)
 
 
-def clear_screen():
+def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
@@ -21,8 +21,8 @@ def current_time():
     return datetime.now().strftime("%d-%m-%Y %H:%M")
 
 
-def find_available_key(data):
-    keys = set(data.keys()) if isinstance(data, dict) else set()
+def find_available_key(notes):
+    keys = set(notes.keys()) if isinstance(notes, dict) else set()
     i = 1
     while str(i) in keys:
         i += 1
@@ -31,3 +31,6 @@ def find_available_key(data):
 
 def check_key(data: dict, key: str):
     return key in data
+
+
+

@@ -1,21 +1,22 @@
-from tkinter import Tk, Label, Button, Text
-
-from model.Tkinter import run_note_editor
+from model.NodeEditor import NoteEditor
 from view.ConsoleUI import *
-from model.Model import load_notions, save_changes, clear_console, current_time, find_available_key, check_key
 
-import_notes = load_notions()
+import_notes = load_notes()
+node_editor = NoteEditor()
 
 
 def main_menu():
     clear_console()
     while True:
-        show_all_notes(import_notes)
         choice = view_main_menu()
         if choice == "1":
             add_note(import_notes)
+            user_output(show_message(7))
+            continue
         if choice == "2":
+            show_all_notes(import_notes)
             note_menu(import_notes)
+            continue
         if choice == "3":
             break
         else:
@@ -30,7 +31,9 @@ def note_menu(notes: dict):
             show_note(notes, choice_id)
             choice_note_menu = show_note_menu()
             if choice_note_menu == "1":
+                user_output(show_message(6))
                 edit_note(notes, choice_id)
+                user_output(show_message(7))
             if choice_note_menu == "2":
                 delete_note(notes, choice_id)
                 break
@@ -45,7 +48,7 @@ def edit_note(notes: dict, note_id: str):
 
 
 def edit_note_text(notes: dict, note_id: str):
-    notes[note_id]["body"] = run_note_editor(notes, note_id)
+    notes[note_id]["body"] = node_editor.run_editor(notes, note_id)
 
 
 def edit_date_of_change(data: dict, id: str):
@@ -53,18 +56,19 @@ def edit_date_of_change(data: dict, id: str):
 
 
 def add_note(notes: dict):
-    new_note = {
-        "title": input("Введите название"),
-        "date_of_creation": current_time(),
-        "date_of_change": current_time(),
-        "body": ""
-    }
     key = find_available_key(notes)
-    notes[key] = new_note
+    notes[key] = show_add_note()
     edit_note(notes, key)
 
 
 def delete_note(notes: dict, note_id: str):
-    if note_id in notes:
-        del notes[note_id]
-    save_changes(notes)
+    temp_note = notes[note_id]
+    if check_choice():
+        if note_id in notes:
+            user_output(show_message(4, temp_note["title"]))
+            del notes[note_id]
+        save_changes(notes)
+
+
+def check_choice():
+    return show_confirm() == "y"

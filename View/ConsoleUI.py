@@ -32,7 +32,10 @@ def show_message(number_message: int, param=0):
                     4: f"Заметка {param} удалена",
                     5: "Вы уверенны? Y:Yes/N:No ",
                     6: "||||Работа в режиме редактора||||",
-                    7: "||||Выход из режима редактора||||"}
+                    7: "||||Выход из режима редактора||||",
+                    8: "Список заметок пуст!",
+                    9: "До свидания!",
+                    10: "Заметки с таким номером не существует!"}
     return message_dict[number_message]
 
 
@@ -40,8 +43,9 @@ def show_all_notes(notes: dict):
     print("Список заметок")
     for key, value in notes.items():
         line = "№{:<3s}  Название: {:<15s} Дата изменения: {:<17s}".format(key, value['title'],
-                                                                                value['date_of_change'])
+                                                                           value['date_of_change'])
         print(line)
+
 
 def user_input(message: str) -> str:
     return input(message)
@@ -53,6 +57,9 @@ def user_output(message: str):
 
 def show_note(notes: dict, note_id: str):
     temp_data = notes[note_id]
+    body_check = (
+        temp_data["body"]) if check_length_body_note(notes,
+                                                     note_id) > 0 else "| Заметка не содержит записей |"
     text = f"""
 {separator()}
 №:{note_id} 
@@ -60,7 +67,7 @@ def show_note(notes: dict, note_id: str):
 Дата создания: {temp_data['date_of_creation']} \nИзменён: {temp_data['date_of_change']}
 {separator()}
 Тело заметки:
-{temp_data["body"]}
+{body_check}
 {separator()}"""
     print(text)
 

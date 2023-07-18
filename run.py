@@ -1,3 +1,3 @@
-from controller.Controller import main_menu
+from Controller.Controller import main_menu
 
 main_menu()

@@ -33,6 +33,7 @@ def check_key(data: dict, key: str):
     return key in data
 
 
-
+def check_length_body_note(note: dict, note_id: str):
+    return len(note[note_id]['body'])
 
 

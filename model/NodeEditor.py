@@ -24,7 +24,6 @@ class NoteEditor:
         text.insert("end", notes[note_id]["body"])
         text.pack(expand=True, fill="both")
 
-
         def exit_application():
             root.destroy()
 

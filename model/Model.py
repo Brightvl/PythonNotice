@@ -37,3 +37,25 @@ def check_length_body_note(note: dict, note_id: str):
     return len(note[note_id]['body'])
 
 
+def sort_dictionary_by_key(notes: dict):
+    return dict(sorted(notes.items(), key=lambda x: int(x[0])))
+
+
+def sort_dictionary_by_title(notes: dict):
+    return dict(sorted(notes.items(), key=lambda x: x[1]["title"]))
+
+
+def sort_dictionary_by_date_of_creation(notes: dict):
+    return dict(sorted(notes.items(), key=lambda x: x[1]["date_of_creation"]))
+
+
+def sort_dictionary_by_date_of_change(notes: dict):
+    return dict(sorted(notes.items(), key=lambda x: x[1]["date_of_change"]))
+
+
+def check_length_input_notes(notes: dict):
+    """
+    Проверяет сколько заметок создано
+    :return:
+    """
+    return len(notes)

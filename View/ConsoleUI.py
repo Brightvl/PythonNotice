@@ -2,10 +2,8 @@ from model.Model import *
 
 
 def view_main_menu() -> str:
-    print(f"""
-{separator()}
-"Заметки"
-{separator()}
+    print(f"""{separator()}
+\033[1mЗаметки\033[0m
 1. Добавить заметку
 2. Выбрать заметку
 3. Выйти""")
@@ -14,9 +12,10 @@ def view_main_menu() -> str:
 
 def show_note_menu() -> str:
     print("""Доступные команды:
-1. Редактировать
-2. Удалить
-3. Назад""")
+1. Изменить название
+2. Изменить тело 
+3. Удалить
+4. Назад""")
     return input("Введите номер команды: ")
 
 
@@ -35,16 +34,20 @@ def show_message(number_message: int, param=0):
                     7: "||||Выход из режима редактора||||",
                     8: "Список заметок пуст!",
                     9: "До свидания!",
-                    10: "Заметки с таким номером не существует!"}
+                    10: "Заметки с таким номером не существует!",
+                    11: "Смена фильтра -> 0",
+                    12: "Фильтр: ",
+                    13: "Заметка не удалена",
+                    14: "Введите новое название: "}
     return message_dict[number_message]
 
 
 def show_all_notes(notes: dict):
-    print("Список заметок")
+    print("Список заметок:")
     for key, value in notes.items():
-        line = "№{:<3s}  Название: {:<15s} Дата изменения: {:<17s}".format(key, value['title'],
-                                                                           value['date_of_change'])
-        print(line)
+        line = "№{:<3s}  Название: {:<15s} Создана: {:<17s} Изменена: {:<17s}". \
+            format(key, value['title'], value['date_of_creation'], value['date_of_change'])
+        print(f"{line}")
 
 
 def user_input(message: str) -> str:
@@ -60,11 +63,9 @@ def show_note(notes: dict, note_id: str):
     body_check = (
         temp_data["body"]) if check_length_body_note(notes,
                                                      note_id) > 0 else "| Заметка не содержит записей |"
-    text = f"""
-{separator()}
-№:{note_id} 
+    text = f"""\033[0mЗаметка\033[0m №:{note_id} 
 Название: {temp_data["title"]} 
-Дата создания: {temp_data['date_of_creation']} \nИзменён: {temp_data['date_of_change']}
+Создана: {temp_data['date_of_creation']} \nИзменена: {temp_data['date_of_change']}
 {separator()}
 Тело заметки:
 {body_check}

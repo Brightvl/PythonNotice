@@ -1,5 +1,8 @@
+from model import load_notes, clear_console, check_length_input_notes, save_changes, check_key, current_time, \
+    find_available_key, sort_dictionary_by_date_of_change, sort_dictionary_by_date_of_creation, sort_dictionary_by_key, \
+    sort_dictionary_by_title
 from model.NodeEditor import NoteEditor
-from View.ConsoleUI import *
+from view.ConsoleUI import *
 
 node_editor = NoteEditor()
 

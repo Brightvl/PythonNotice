@@ -1,4 +1,4 @@
-from model.Model import *
+from model import check_length_body_note
 
 
 def view_main_menu() -> str:

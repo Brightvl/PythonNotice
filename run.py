@@ -1,4 +1,4 @@
-from Controller.Controller import main_menu
+from controller.Controller import main_menu
 
 main_menu()
 

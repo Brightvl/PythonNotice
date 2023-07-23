@@ -1,4 +1,4 @@
-from model import check_length_body_note
+from model import check_length_body_note, current_time
 
 
 def view_main_menu() -> str:
@@ -46,7 +46,8 @@ def show_all_notes(notes: dict):
     print("Список заметок:")
     for key, value in notes.items():
         line = "№{:<3s}  Название: {:<15s} Создана: {:<17s} Изменена: {:<17s}". \
-            format(key, value['title'], value['date_of_creation'], value['date_of_change'])
+            format(key, value['title'], value['date_of_creation'].strftime("%d-%m-%Y %H:%M"),
+                   value['date_of_change'].strftime("%d-%m-%Y %H:%M"))
         print(f"{line}")
 
 
@@ -61,11 +62,13 @@ def user_output(message: str):
 def show_note(notes: dict, note_id: str):
     temp_data = notes[note_id]
     body_check = (
-        temp_data["body"]) if check_length_body_note(notes,
-                                                     note_id) > 0 else "| Заметка не содержит записей |"
+        temp_data["body"]) \
+        if check_length_body_note(notes, note_id) > 0 \
+        else "| Заметка не содержит записей |"
     text = f"""\033[0mЗаметка\033[0m №:{note_id} 
 Название: {temp_data["title"]} 
-Создана: {temp_data['date_of_creation']} \nИзменена: {temp_data['date_of_change']}
+Создана: {temp_data['date_of_creation'].strftime("%d-%m-%Y %H:%M")} 
+Изменена: {temp_data['date_of_change'].strftime("%d-%m-%Y %H:%M")}
 {separator()}
 Тело заметки:
 {body_check}

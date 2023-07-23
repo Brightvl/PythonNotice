@@ -11,10 +11,10 @@ class NoteEditor:
 
         label = Label(
             root,
-            text=f"№:{note_id} "
-                 f"Название: {notes[note_id]['title']} \n"
-                 f"Дата создания: {notes[note_id]['date_of_creation']} "
-                 f"\nИзменён: {notes[note_id]['date_of_change']}\n",
+            text=f"""№:{note_id}
+Название: {notes[note_id]['title']}
+Дата создания: {notes[note_id]['date_of_creation'].strftime("%d-%m-%Y %H:%M")}
+Изменён: {notes[note_id]['date_of_change'].strftime("%d-%m-%Y %H:%M")}""",
             justify="left", font=13)
         label.configure(background="#F9EABD")
         label.pack(side="top", anchor="w")

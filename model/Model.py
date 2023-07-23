@@ -1,24 +1,46 @@
 import json
 import os
 from datetime import datetime
+import copy
 
 
 def load_notes() -> dict:
     with open("data/notes.json", "r") as read_file:
-        return json.loads(read_file.read())
+        data = json.loads(read_file.read())
+        load_convert_datetime(data)
+        return data
 
 
-def save_changes(data):
+def load_convert_datetime(data: json):
+    for key, value in data.items():
+        if 'date_of_creation' in value:
+            value['date_of_creation'] = datetime.strptime(value['date_of_creation'], "%d-%m-%Y %H:%M")
+        if 'date_of_change' in value:
+            value['date_of_change'] = datetime.strptime(value['date_of_change'], "%d-%m-%Y %H:%M")
+
+
+def save_changes(data: dict):
+    temp_data = copy.deepcopy(data)
+    save_convert_datetime(temp_data)
     with open("data/notes.json", 'w') as save_file:
-        json.dump(data, save_file, indent=4)
+        json.dump(temp_data, save_file, indent=4)
+
+
+def save_convert_datetime(data: dict):
+    for key, value in data.items():
+        if 'date_of_creation' in value:
+            value['date_of_creation'] = value['date_of_creation'].strftime("%d-%m-%Y %H:%M")
+        if 'date_of_change' in value:
+            value['date_of_change'] = value['date_of_change'].strftime("%d-%m-%Y %H:%M")
 
 
 def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
+
 def current_time():
-    return datetime.now().strftime("%d-%m-%Y %H:%M")
+    return datetime.now()
 
 
 def find_available_key(notes):
@@ -59,3 +81,13 @@ def check_length_input_notes(notes: dict):
     :return:
     """
     return len(notes)
+
+
+def find_date_first_note(notes: dict):
+    return min(note['date_of_creation'] for note in notes.values())
+
+
+def find_date_end_note(notes: dict):
+    return max(note['date_of_creation'] for note in notes.values())
+
+
